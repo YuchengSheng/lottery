@@ -7,5 +7,12 @@ flucky <- function (n){tibble(ID=1:n,n2=100) %>%    
                         mutate(lucky=map_int(n2,fin),           
                         llucky=ifelse(lucky>0,1,0)) %>%     
                         group_by(n2) %>%     
-                        summarise(prop = sum(llucky)/n)}
-flucky(2000)
+                        summarise(prop = sum(llucky)/n) %>% 
+                        select(prop) %>% pull}
+flucky(20)
+tibble(SimID = 1:10,n1=100) %>%     
+  mutate(prop=map_dbl(n1,flucky)) %>% 
+  group_by(n1) %>% 
+  summarise(mean=mean(prop))
+
+1-(2/3)^5
