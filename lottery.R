@@ -1,4 +1,5 @@
-set.seed=1selected <- c(1:5)
+set.seed=1
+selected <- c(1:5)
 fsample <- function (n2) {sample_n(tibble(1:300), n2,replace = FALSE)}
 fin <- function(n2) {selected %in% pull(fsample(n2)) %>% sum}
 #fin(80)
