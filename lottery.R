@@ -1,3 +1,4 @@
+library(tidyverse)
 set.seed=1
 selected <- c(1:5)
 fsample <- function (n2) {sample_n(tibble(1:300), n2,replace = FALSE)}
