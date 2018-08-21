@@ -1,0 +1,27 @@
+library(tidyverse)
+
+flipNo <- 200
+trialNo <- 10000
+
+# Select the maximum count of consecutive duplicate values
+flipMaxRLE <- function(n=flipNo){
+  rbinom(flipNo,1,0.5)  %>% 
+    rle() %>% 
+    .$lengths %>% 
+    max()
+}
+flipMaxRLE()
+
+Simulation <- tibble(trialN = 1:trialNo) %>% 
+  group_by(trialN) %>%
+  mutate(max = flipMaxRLE())
+table(Simulation$max)
+prop.table(table(Simulation$max))
+p <- ecdf(Simulation$max)
+plot(p)
+# probability of max >=6
+1-p(5)
+
+Simulation %>% 
+ggplot() +
+  geom_histogram(aes(x=max))
